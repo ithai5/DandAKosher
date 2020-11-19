@@ -2,6 +2,7 @@ package com.example.demo;
 
 
 import com.example.demo.model.Message;
+import com.example.demo.service.MessageService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class MessageTest {
     @Test
     void CreateMessage(){
         Message message = new Message(4,"we test", "testtesttesttesttesttesttesttest", 6);
-        Message messageDummy = new Message(4,"we test", "testtesttesttesttesttesttesttest", 6)
+        Message messageDummy = new Message(4,"we test", "testtesttesttesttesttesttesttest", 6);
         //should pass the test
         Assertions.assertEquals(messageService.createMessage(message), message);
 
@@ -31,7 +32,6 @@ public class MessageTest {
         Assertions.assertNotEquals(messageService.createMessage(message), messageDummy);
         //test Exception for invalid foreign key
         message.setCustomerId(99);
-        messageService.createMessage(message);//check which exception will be throws
         Assertions.assertThrows(DataIntegrityViolationException.class , ()->messageService.createMessage(message));
 
 
