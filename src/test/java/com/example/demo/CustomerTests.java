@@ -1,17 +1,24 @@
 package com.example.demo;
 
 import com.example.demo.model.Customer;
+import com.example.demo.service.CustomerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
+import org.springframework.dao.DataIntegrityViolationException;
+
+import java.sql.SQLException;
 
 @SpringBootTest
 public class CustomerTests {
 
+
+    private final CustomerService customerService;
     @Autowired
-    CustomerService customerService;
+    public CustomerTests(CustomerService customerService){
+        this.customerService = customerService;
+    }
 
     @Test
     //Tests to see if the createCustomer method works
@@ -31,8 +38,8 @@ public class CustomerTests {
 
         //Test on incomplete customer | Database should throw an error
         customer.setEmail(null);
-        //Test exceptions
-        //Assertions.assertThrows(new SQLE, )
 
+        Assertions.assertThrows(DataIntegrityViolationException.class ,
+                ()-> customerService.createCustomer(customer)); //lambda exception need to run first the method in order to create the error
     }
 }
