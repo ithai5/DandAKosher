@@ -30,6 +30,7 @@ public class MessageController {
     public String sendMessage(@ModelAttribute Customer cInfo, @ModelAttribute Message mInfo) {
         Customer customer = customerService.customerExists(cInfo);
         mInfo.setCustomerId(customer.getId());
+        System.out.println("mInfo" + mInfo);
         Message message = messageService.createMessage(mInfo);
         messageService.sendMessageToEmail(message);
         return "redirect:/";

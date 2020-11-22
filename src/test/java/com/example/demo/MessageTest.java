@@ -29,8 +29,8 @@ public class MessageTest {
 
     @Test
     void CreateMessage(){
-        Message message = new Message(4,"we test", "testtesttesttesttesttesttesttest", 6);
-        Message messageDummy = new Message(4,"we test", "testtesttesttesttesttesttesttest", 6);
+        Message message = new Message(4,"we test", "Supertesttesttesttesttesttesttesttest", 6);
+        Message messageDummy = new Message(4,"we test", "Supertesttesttesttesttesttesttesttest", 6);
         //should pass the test
         Assertions.assertEquals(messageService.createMessage(message), message);
 

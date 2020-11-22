@@ -26,6 +26,7 @@ public class MessageService {
     }
 
     public Message createMessage(Message message) {
+        System.out.println("message" + message);
         return messageRepo.save(message);
     }
 
@@ -43,9 +44,9 @@ public class MessageService {
         toEmail.setSubject(message.getSubject());
         toEmail.setText(message.getContent());
         //Not sure if this part matters
-        toEmail.setFrom("loool@gmail.com");
+        toEmail.setFrom("whatever@mail.com");
 
-        toEmail.setTo(System.getenv("bmUsername"));
+        toEmail.setTo(System.getenv("mailAddress"));
         javaMailSender.send(toEmail);
     }
 
