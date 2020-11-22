@@ -68,7 +68,6 @@ public class MessageTest {
         toSend.setText(testMsg.getContent());
 
         String customerEmail = customerService.findCustomerById(testMsg.getCustomerId()).getBody().getEmail();
-        toSend.setFrom("jakesuck@gmail.com");
 
         String businessEmail = "dandakosher@gmail.com";
         toSend.setTo(businessEmail);

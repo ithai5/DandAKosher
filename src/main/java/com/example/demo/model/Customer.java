@@ -125,4 +125,15 @@ public class Customer {
         result = 31 * result + (int) isSubscribed;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", isSubscribed=" + isSubscribed +
+                '}';
+    }
 }

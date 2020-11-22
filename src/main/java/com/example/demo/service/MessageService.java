@@ -1,11 +1,13 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Customer;
 import com.example.demo.model.Message;
 import com.example.demo.repository.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,11 +16,13 @@ import java.util.Optional;
 public class MessageService {
 
     private final MessageRepo messageRepo;
+    private final JavaMailSender javaMailSender;
 
     @Autowired
-    public MessageService(MessageRepo messageRepo) {
+    public MessageService(MessageRepo messageRepo, JavaMailSender javaMailSender) {
         super();
         this.messageRepo = messageRepo;
+        this.javaMailSender=javaMailSender;
     }
 
     public Message createMessage(Message message) {
@@ -33,10 +37,16 @@ public class MessageService {
         }
         return null;
     }
-    /*
+
     public void sendMessageToEmail(Message message) {
         SimpleMailMessage toEmail = new SimpleMailMessage();
-        toEmail.setText(message.);
+        toEmail.setSubject(message.getSubject());
+        toEmail.setText(message.getContent());
+        //Not sure if this part matters
+        toEmail.setFrom("loool@gmail.com");
+
+        toEmail.setTo(System.getenv("bmUsername"));
+        javaMailSender.send(toEmail);
     }
-    */
+
 }

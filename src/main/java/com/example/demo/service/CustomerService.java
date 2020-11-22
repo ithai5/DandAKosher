@@ -25,7 +25,13 @@ public class CustomerService {
         return customerRepo.save(customer);
     }
 
-
+    public Customer customerExists(Customer customer) {
+        Customer existingCustomer = customerRepo.findByEmail(customer.getEmail());
+        if (existingCustomer == null) {
+            return createCustomer(customer);
+        }
+        return existingCustomer;
+    }
     public ResponseEntity<Customer> findCustomerById(Integer customerId){
         Optional<Customer> response = customerRepo.findById(customerId);
         if (response.isPresent()) {

@@ -109,4 +109,14 @@ public class Message {
         result = 31 * result + customerId;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", subject='" + subject + '\'' +
+                ", content='" + content + '\'' +
+                ", customerId=" + customerId +
+                '}';
+    }
 }
