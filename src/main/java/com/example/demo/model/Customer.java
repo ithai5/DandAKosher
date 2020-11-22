@@ -13,6 +13,17 @@ public class Customer {
     private String email;
     private byte isSubscribed;
 
+    public Customer() {
+    }
+
+    public Customer(int id, String fullName, String phone, String email, byte isSubscribed) {
+        this.id = id;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.email = email;
+        this.isSubscribed = isSubscribed;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public int getId ()
@@ -113,5 +124,16 @@ public class Customer {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (int) isSubscribed;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", isSubscribed=" + isSubscribed +
+                '}';
     }
 }

@@ -12,6 +12,18 @@ public class Message {
     private String content;
     private int customerId;
 
+    public Message ()
+    {
+    }
+
+    public Message (int id, String subject, String content, int customerId)
+    {
+        this.id = id;
+        this.subject = subject;
+        this.content = content;
+        this.customerId = customerId;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public int getId ()
@@ -96,5 +108,15 @@ public class Message {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + customerId;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", subject='" + subject + '\'' +
+                ", content='" + content + '\'' +
+                ", customerId=" + customerId +
+                '}';
     }
 }
