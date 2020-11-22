@@ -2,6 +2,7 @@ package com.example.demo;
 
 
 import com.example.demo.model.Message;
+import com.example.demo.service.CustomerService;
 import com.example.demo.service.MessageService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,16 +11,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.util.Assert;
 
 @SpringBootTest
 public class MessageTest {
 
     private final MessageService messageService;
+    private final CustomerService customerService;
+    private final JavaMailSender javaMailSender;
 
     @Autowired
-    public MessageTest(MessageService messageService){
+    public MessageTest(MessageService messageService, CustomerService customerService, JavaMailSender javaMailSender){
         this.messageService=messageService;
+        this.customerService=customerService;
+        this.javaMailSender=javaMailSender;
     }
 
     @Test
@@ -58,5 +66,16 @@ public class MessageTest {
         Message testMsg = messageService.findById(4).getBody();
 
         //
+        SimpleMailMessage toSend = new SimpleMailMessage();
+        toSend.setSubject(testMsg.getSubject());
+        toSend.setText(testMsg.getContent());
+
+        String customerEmail = customerService.findCustomerById(testMsg.getCustomerId()).getBody().getEmail();
+        toSend.setFrom("jakesuck@gmail.com");
+
+        String businessEmail = "dandakosher@gmail.com";
+        toSend.setTo(businessEmail);
+
+        javaMailSender.send(toSend);
     }
 }

@@ -3,7 +3,11 @@ package com.example.demo.service;
 import com.example.demo.model.Customer;
 import com.example.demo.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -20,4 +24,13 @@ public class CustomerService {
         return customerRepo.save(customer);
     }
 
+
+    public ResponseEntity<Customer> findCustomerById(Integer customerId){
+        Optional<Customer> response = customerRepo.findById(customerId);
+        if (response.isPresent()) {
+            return new ResponseEntity<Customer>(response.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
 }
