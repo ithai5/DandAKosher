@@ -1,0 +1,172 @@
+body{
+    font: 15px/1.5 Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: #fff5d7
+}
+
+/* Global */
+.container{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+}
+
+.button_1{
+    height: 36px;
+    background: #ff5e6c;
+    border: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #ffffff;
+}
+
+.dark {
+    padding: 15px;
+    background: #35424a;
+    border: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #ffffff;
+    margin-bottom: 30px;
+}
+
+/* Header */
+header{
+    background: rgb(86, 121, 236);
+    color: #ffffff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #ff5e6c 3px solid;
+}
+
+header a{
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+header ul{
+    margin: 0;
+    padding: 0;
+}
+
+header li{
+    float: left;
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+
+header #branding{
+    float: left;
+}
+
+header #branding h1{
+    margin: 0;
+    font-size: 35px;
+}
+
+header nav{
+    float: right;
+    margin-top: 10px;
+}
+
+header .highlight, header .current a{
+    color: #ff5e6c ;
+    font-weight: bold;
+
+}
+
+header a:hover{
+    color: salmon;
+    font-weight: bold;
+}
+
+
+/*Showcase*/
+#showcase{
+    min-height: 400px;
+    /*background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Food_in_Israel.jpg/1024px-Food_in_Israel.jpg) no-repeat 0 -200px;*/
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Food_in_Israel.jpg/1024px-Food_in_Israel.jpg);
+    background-color: rgba(255, 255, 255, 0.486);
+    background-blend-mode: overlay;
+    background-repeat: no-repeat;
+    background-position-x: 0;
+    background-position-y: -200px;
+    background-size: cover;
+    text-align: center;
+    color: #9e1a1a;
+}
+
+#showcase h1{
+    margin-top: 100px;
+    font-size: 55px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 10px;
+}
+
+#showcase{
+    font-size: 20px;
+}
+
+/*Newsletter*/
+#newsletter{
+    padding: 10px;
+    color: #ffffff;
+    background: #242582 /*rgb(86, 121, 236);*/
+}
+
+#newsletter h1{
+    float: left;
+}
+
+#newsletter form{
+    float: right;
+    margin-top: 15px;
+}
+
+#newsletter input[type="email"]{
+    padding: 4px;
+    height: 25px;
+    width: 250px;
+}
+
+/*Boxes*/
+#boxes{
+    margin-top: 20px;
+}
+
+#boxes .box{
+    float: left;
+    width: 30%;
+    padding: 15px;
+    text-align: center;
+}
+
+/*Sidebar*/
+aside#sidebar{
+    float: right;
+    width: 30%;
+    margin-top: 5px;
+}
+
+/*Wh*/
+article#wh{
+    float: left;
+    width: 65%;
+}
+
+/*Footer*/
+footer{
+   padding: 10px;
+   margin-top: 20px;
+   color: #ffffff;
+   background-color: rgb(86, 121, 236);
+   text-align: center;
+}
