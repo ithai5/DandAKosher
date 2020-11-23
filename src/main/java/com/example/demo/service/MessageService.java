@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.Customer;
 import com.example.demo.model.Message;
+import com.example.demo.repository.CustomerRepo;
 import com.example.demo.repository.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,13 +17,15 @@ import java.util.Optional;
 public class MessageService {
 
     private final MessageRepo messageRepo;
+    private final CustomerService customerService;
     private final JavaMailSender javaMailSender;
 
     @Autowired
-    public MessageService(MessageRepo messageRepo, JavaMailSender javaMailSender) {
+    public MessageService(MessageRepo messageRepo, JavaMailSender javaMailSender, CustomerService customerService) {
         super();
         this.messageRepo = messageRepo;
         this.javaMailSender=javaMailSender;
+        this.customerService=customerService;
     }
 
     public Message createMessage(Message message) {
@@ -48,6 +51,13 @@ public class MessageService {
 
         toEmail.setTo(System.getenv("mailAddress"));
         javaMailSender.send(toEmail);
+    }
+
+    public void handleSendMessage(Customer cInfo, Message mInfo) {
+        Customer customer = customerService.customerExists(cInfo);
+        mInfo.setCustomerId(customer.getId());
+        Message message = createMessage(mInfo);
+        sendMessageToEmail(message);
     }
 
 }
