@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.model.MenuOrder;
 import com.example.demo.model.MenuType;
 import com.example.demo.service.MenuTypeService;
 import org.junit.jupiter.api.Assertions;
@@ -23,9 +22,14 @@ public class MenuTypeTests {
     void createMenuType(){
         int id = 7;
         //Dummy data
-        MenuType menuType = new MenuType(id, "deluxePlus", "deliciousHummus", 100.75);
-        MenuType menuTypeDummy = new MenuType(id, "deluxePlus", "deliciousHummus", 100.75);
+        MenuType menuType = new MenuType(id, "deluxePlus", 100.75);
+        MenuType menuTypeDummy = new MenuType(id, "deluxePlus", 100.75);
         //Should be true
         Assertions.assertEquals(menuTypeDummy, menuTypeService.createMenuType(menuType));
+    }
+
+    @Test
+    void foodListMapping() {
+        System.out.println(menuTypeService.findAll());
     }
 }

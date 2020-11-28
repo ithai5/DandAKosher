@@ -1,21 +1,20 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "menutype", schema = "dakosher", catalog = "")
 public class MenuType {
     private int id;
     private String typeName;
-    private String content;
     private Double basePrice;
 
-    public MenuType() { }
+    public MenuType() {
+    }
 
-    public MenuType(int id, String typeName, String content, Double basePrice) {
+    public MenuType(int id, String typeName, Double basePrice) {
         this.id = id;
         this.typeName = typeName;
-        this.content = content;
         this.basePrice = basePrice;
     }
 
@@ -40,16 +39,6 @@ public class MenuType {
     }
 
     @Basic
-    @Column(name = "content", nullable = true, length = 750)
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    @Basic
     @Column(name = "base_price", nullable = true, precision = 2)
     public Double getBasePrice() {
         return basePrice;
@@ -59,27 +48,42 @@ public class MenuType {
         this.basePrice = basePrice;
     }
 
+    /*
+    @ManyToMany
+    @JoinTable(
+            name="menutype_has_plate",
+            joinColumns = @JoinColumn(name = "type_id"),
+            inverseJoinColumns = @JoinColumn(name = "plate_id"))
+    public List<Plate> getContent() {
+        return content;
+    }
+
+    public void setContent(List<Plate> content) {
+        this.content = content;
+    }
+    */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        MenuType that = (MenuType) o;
-
-        if (id != that.id) return false;
-        if (typeName != null ? !typeName.equals(that.typeName) : that.typeName != null) return false;
-        if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (basePrice != null ? !basePrice.equals(that.basePrice) : that.basePrice != null) return false;
-
-        return true;
+        MenuType menuType = (MenuType) o;
+        return id == menuType.id &&
+                Objects.equals(typeName, menuType.typeName) &&
+                Objects.equals(basePrice, menuType.basePrice);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (typeName != null ? typeName.hashCode() : 0);
-        result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (basePrice != null ? basePrice.hashCode() : 0);
-        return result;
+        return Objects.hash(id, typeName, basePrice);
+    }
+
+    @Override
+    public String toString() {
+        return "MenuType{" +
+                "id=" + id +
+                ", typeName='" + typeName + '\'' +
+                ", basePrice=" + basePrice +
+                '}';
     }
 }

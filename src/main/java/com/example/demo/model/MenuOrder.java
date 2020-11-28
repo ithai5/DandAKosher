@@ -1,32 +1,32 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name = "menuorder", schema = "dakosher", catalog = "")
 public class MenuOrder {
     private int id;
-    private String extraItems;
     private Integer totalPeople;
     private Double totalPrice;
     private Integer typeId;
     private Integer eventId;
     private Integer customerId;
     private Integer messageId;
+    private List<Plate> extras;
 
     public MenuOrder() {
     }
 
-    public MenuOrder(int id, String extraItems, Integer totalPeople, Double totalPrice, Integer typeId, Integer eventId, Integer customerId, Integer messageId) {
+    public MenuOrder(int id, Integer totalPeople, Double totalPrice, Integer typeId, Integer eventId, Integer customerId, Integer messageId, List<Plate> extras) {
         this.id = id;
-        this.extraItems = extraItems;
         this.totalPeople = totalPeople;
         this.totalPrice = totalPrice;
         this.typeId = typeId;
         this.eventId = eventId;
         this.customerId = customerId;
         this.messageId = messageId;
+        this.extras = extras;
     }
 
     @Id
@@ -37,16 +37,6 @@ public class MenuOrder {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "extra_items", nullable = true, length = 750)
-    public String getExtraItems() {
-        return extraItems;
-    }
-
-    public void setExtraItems(String extraItems) {
-        this.extraItems = extraItems;
     }
 
     @Basic
@@ -109,35 +99,36 @@ public class MenuOrder {
         this.messageId = messageId;
     }
 
+    @ManyToMany
+    @JoinTable(
+            name="menuorder_has_plate",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "plate_id"))
+    public List<Plate> getExtras() {
+        return extras;
+    }
+
+    public void setExtras(List<Plate> extras) {
+        this.extras = extras;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        MenuOrder that = (MenuOrder) o;
-
-        if (id != that.id) return false;
-        if (extraItems != null ? !extraItems.equals(that.extraItems) : that.extraItems != null) return false;
-        if (totalPeople != null ? !totalPeople.equals(that.totalPeople) : that.totalPeople != null) return false;
-        if (totalPrice != null ? !totalPrice.equals(that.totalPrice) : that.totalPrice != null) return false;
-        if (typeId != null ? !typeId.equals(that.typeId) : that.typeId != null) return false;
-        if (eventId != null ? !eventId.equals(that.eventId) : that.eventId != null) return false;
-        if (customerId != null ? !customerId.equals(that.customerId) : that.customerId != null) return false;
-        if (messageId != null ? !messageId.equals(that.messageId) : that.messageId != null) return false;
-
-        return true;
+        MenuOrder menuOrder = (MenuOrder) o;
+        return id == menuOrder.id &&
+                Objects.equals(totalPeople, menuOrder.totalPeople) &&
+                Objects.equals(totalPrice, menuOrder.totalPrice) &&
+                Objects.equals(typeId, menuOrder.typeId) &&
+                Objects.equals(eventId, menuOrder.eventId) &&
+                Objects.equals(customerId, menuOrder.customerId) &&
+                Objects.equals(messageId, menuOrder.messageId) &&
+                Objects.equals(extras, menuOrder.extras);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (extraItems != null ? extraItems.hashCode() : 0);
-        result = 31 * result + (totalPeople != null ? totalPeople.hashCode() : 0);
-        result = 31 * result + (totalPrice != null ? totalPrice.hashCode() : 0);
-        result = 31 * result + (typeId != null ? typeId.hashCode() : 0);
-        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
-        result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
-        result = 31 * result + (messageId != null ? messageId.hashCode() : 0);
-        return result;
+        return Objects.hash(id, totalPeople, totalPrice, typeId, eventId, customerId, messageId, extras);
     }
 }

@@ -22,8 +22,8 @@ public class MenuOrderTests {
     void createMenuOrder(){
         int id = 7;
         //Dummy data
-        MenuOrder menuOrder = new MenuOrder(id, "soup", 4, 600.50, 1, 3, 8, 12);
-        MenuOrder menuOrderDummy = new MenuOrder(id, "soup", 4, 600.50, 1, 3, 8, 12);
+        MenuOrder menuOrder = new MenuOrder(id, 4, 600.50, 1, 3, 8, 12, null);
+        MenuOrder menuOrderDummy = new MenuOrder(id, 4, 600.50, 1, 3, 8, 12, null);
         //Should be true
         Assertions.assertEquals(menuOrderDummy, menuOrderService.createMenuOrder(menuOrder));
     }

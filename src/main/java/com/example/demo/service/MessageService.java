@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.model.Customer;
 import com.example.demo.model.Message;
-import com.example.demo.repository.CustomerRepo;
 import com.example.demo.repository.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
