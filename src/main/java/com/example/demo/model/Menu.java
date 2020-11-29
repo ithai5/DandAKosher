@@ -1,22 +1,16 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-public class MenuType {
+public class Menu {
     private int id;
     private String typeName;
     private Double basePrice;
-
-    public MenuType() {
-    }
-
-    public MenuType(int id, String typeName, Double basePrice) {
-        this.id = id;
-        this.typeName = typeName;
-        this.basePrice = basePrice;
-    }
+    private Collection<MenuHasPlate> content;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -48,29 +42,14 @@ public class MenuType {
         this.basePrice = basePrice;
     }
 
-    /*
-    @ManyToMany
-    @JoinTable(
-            name="menutype_has_plate",
-            joinColumns = @JoinColumn(name = "type_id"),
-            inverseJoinColumns = @JoinColumn(name = "plate_id"))
-    public List<Plate> getContent() {
-        return content;
-    }
-
-    public void setContent(List<Plate> content) {
-        this.content = content;
-    }
-    */
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MenuType menuType = (MenuType) o;
-        return id == menuType.id &&
-                Objects.equals(typeName, menuType.typeName) &&
-                Objects.equals(basePrice, menuType.basePrice);
+        Menu menu = (Menu) o;
+        return id == menu.id &&
+                Objects.equals(typeName, menu.typeName) &&
+                Objects.equals(basePrice, menu.basePrice);
     }
 
     @Override
@@ -78,9 +57,18 @@ public class MenuType {
         return Objects.hash(id, typeName, basePrice);
     }
 
+    @OneToMany(mappedBy = "menuByTypeId", fetch = FetchType.EAGER)
+    public Collection<MenuHasPlate> getContent() {
+        return content;
+    }
+
+    public void setContent(Collection<MenuHasPlate> content) {
+        this.content = content;
+    }
+
     @Override
     public String toString() {
-        return "MenuType{" +
+        return "Menu{" +
                 "id=" + id +
                 ", typeName='" + typeName + '\'' +
                 ", basePrice=" + basePrice +

@@ -1,9 +1,7 @@
 package com.example.demo.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,15 +9,7 @@ public class Plate {
     private int id;
     private String plateName;
     private Double platePrice;
-
-    public Plate() {
-    }
-
-    public Plate(int id, String plateName, Double platePrice) {
-        this.id = id;
-        this.plateName = plateName;
-        this.platePrice = platePrice;
-    }
+    private Collection<MenuHasPlate> menus;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -64,6 +54,15 @@ public class Plate {
     @Override
     public int hashCode() {
         return Objects.hash(id, plateName, platePrice);
+    }
+
+    @OneToMany(mappedBy = "plateByPlateId", fetch = FetchType.EAGER)
+    public Collection<MenuHasPlate> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Collection<MenuHasPlate> menus) {
+        this.menus = menus;
     }
 
     @Override
