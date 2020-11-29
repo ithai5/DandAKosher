@@ -1,22 +1,22 @@
-package com.example.demo.model;
+package com.example.demo.model.manyToMany;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class MenuHasPlatePK implements Serializable {
-    private int typeId;
+public class OrderHasPlatePK implements Serializable {
+    private int orderId;
     private int plateId;
 
-    @Column(name = "type_id", nullable = false)
+    @Column(name = "order_id", nullable = false)
     @Id
-    public int getTypeId() {
-        return typeId;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     @Column(name = "plate_id", nullable = false)
@@ -33,13 +33,13 @@ public class MenuHasPlatePK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MenuHasPlatePK that = (MenuHasPlatePK) o;
-        return typeId == that.typeId &&
+        OrderHasPlatePK that = (OrderHasPlatePK) o;
+        return orderId == that.orderId &&
                 plateId == that.plateId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(typeId, plateId);
+        return Objects.hash(orderId, plateId);
     }
 }

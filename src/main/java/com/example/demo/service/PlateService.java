@@ -5,6 +5,8 @@ import com.example.demo.repository.PlateRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
 public class PlateService {
 
@@ -18,4 +20,6 @@ public class PlateService {
     public Plate createPlate(Plate plate) {
         return plateRepo.save(plate);
     }
+
+    public Collection<Plate> findAll(){return plateRepo.findAll();}
 }

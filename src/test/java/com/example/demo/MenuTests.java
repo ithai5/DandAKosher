@@ -21,10 +21,10 @@ public class MenuTests {
         /*
         int id = 7;
         //Dummy data
-        MenuType menuType = new MenuType(id, "deluxePlus", 100.75);
-        MenuType menuTypeDummy = new MenuType(id, "deluxePlus", 100.75);
+        Menu menuType = new Menu(id, "deluxePlus", 100.75);
+        Menu menuTypeDummy = new Menu(id, "deluxePlus", 100.75);
         //Should be true
-        Assertions.assertEquals(menuTypeDummy, menuTypeService.createMenuType(menuType));
+        Assertions.assertEquals(menuTypeDummy, menuService.createMenuType(menuType));
         */
     }
 

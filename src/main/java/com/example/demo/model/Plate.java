@@ -1,6 +1,10 @@
 package com.example.demo.model;
 
+import com.example.demo.model.manyToMany.MenuHasPlate;
+import com.example.demo.model.manyToMany.OrderHasPlate;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -8,8 +12,25 @@ import java.util.Objects;
 public class Plate {
     private int id;
     private String plateName;
-    private Double platePrice;
+    private BigDecimal platePrice;
     private Collection<MenuHasPlate> menus;
+    private Collection<OrderHasPlate> orderHasPlatesById;
+    public Plate() {
+    }
+
+    public Plate(int id, String plateName, BigDecimal platePrice, Collection<MenuHasPlate> menus, Collection<OrderHasPlate> orderHasPlatesById) {
+        this.id = id;
+        this.plateName = plateName;
+        this.platePrice = platePrice;
+        this.menus = menus;
+        this.orderHasPlatesById = orderHasPlatesById;
+    }
+
+    public Plate(int id, String plateName, BigDecimal platePrice) {
+        this.id = id;
+        this.plateName = plateName;
+        this.platePrice = platePrice;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -33,11 +54,11 @@ public class Plate {
 
     @Basic
     @Column(name = "plate_price", nullable = true, precision = 2)
-    public Double getPlatePrice() {
+    public BigDecimal getPlatePrice() {
         return platePrice;
     }
 
-    public void setPlatePrice(Double platePrice) {
+    public void setPlatePrice(BigDecimal platePrice) {
         this.platePrice = platePrice;
     }
 
@@ -72,5 +93,14 @@ public class Plate {
                 ", plateName='" + plateName + '\'' +
                 ", platePrice=" + platePrice +
                 '}';
+    }
+
+    @OneToMany(mappedBy = "plateByPlateId")
+    public Collection<OrderHasPlate> getOrderHasPlatesById() {
+        return orderHasPlatesById;
+    }
+
+    public void setOrderHasPlatesById(Collection<OrderHasPlate> orderHasPlatesById) {
+        this.orderHasPlatesById = orderHasPlatesById;
     }
 }

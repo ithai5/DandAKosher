@@ -1,4 +1,7 @@
-package com.example.demo.model;
+package com.example.demo.model.manyToMany;
+
+import com.example.demo.model.Menu;
+import com.example.demo.model.Plate;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -46,8 +49,8 @@ public class MenuHasPlate {
         return Objects.hash(typeId, plateId);
     }
 
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false, insertable = false, updatable =false)
+    @ManyToOne
+    @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public Menu getMenuByTypeId() {
         return menuByTypeId;
     }
@@ -56,23 +59,13 @@ public class MenuHasPlate {
         this.menuByTypeId = menuByTypeId;
     }
 
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "plate_id", referencedColumnName = "id", nullable = false, insertable = false, updatable =false)
+    @ManyToOne
+    @JoinColumn(name = "plate_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public Plate getPlateByPlateId() {
         return plateByPlateId;
     }
 
     public void setPlateByPlateId(Plate plateByPlateId) {
         this.plateByPlateId = plateByPlateId;
-    }
-
-    @Override
-    public String toString() {
-        return "MenuHasPlate{" +
-                "typeId=" + typeId +
-                ", plateId=" + plateId +
-                ", menuByTypeId=" + menuByTypeId +
-                ", plateByPlateId=" + plateByPlateId +
-                '}';
     }
 }

@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.model.manyToMany.MenuHasPlate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -9,8 +11,17 @@ import java.util.Objects;
 public class Menu {
     private int id;
     private String typeName;
-    private Double basePrice;
+    private BigDecimal basePrice;
     private Collection<MenuHasPlate> content;
+
+    public Menu(int id, String typeName, BigDecimal basePrice) {
+        this.id = id;
+        this.typeName = typeName;
+        this.basePrice = basePrice;
+    }
+
+    public Menu() {
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -34,11 +45,11 @@ public class Menu {
 
     @Basic
     @Column(name = "base_price", nullable = true, precision = 2)
-    public Double getBasePrice() {
+    public BigDecimal getBasePrice() {
         return basePrice;
     }
 
-    public void setBasePrice(Double basePrice) {
+    public void setBasePrice(BigDecimal basePrice) {
         this.basePrice = basePrice;
     }
 
@@ -57,21 +68,12 @@ public class Menu {
         return Objects.hash(id, typeName, basePrice);
     }
 
-    @OneToMany(mappedBy = "menuByTypeId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "menuByTypeId")
     public Collection<MenuHasPlate> getContent() {
         return content;
     }
 
     public void setContent(Collection<MenuHasPlate> content) {
         this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "Menu{" +
-                "id=" + id +
-                ", typeName='" + typeName + '\'' +
-                ", basePrice=" + basePrice +
-                '}';
     }
 }
