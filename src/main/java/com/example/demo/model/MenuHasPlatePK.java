@@ -1,4 +1,4 @@
-package com.example.demo.model.manyToMany;
+package com.example.demo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -6,17 +6,17 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class MenuHasPlatePK implements Serializable {
-    private int typeId;
+    private int menuId;
     private int plateId;
 
-    @Column(name = "type_id", nullable = false)
+    @Column(name = "menu_id", nullable = false)
     @Id
-    public int getTypeId() {
-        return typeId;
+    public int getMenuId() {
+        return menuId;
     }
 
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
+    public void setMenuId(int menuId) {
+        this.menuId = menuId;
     }
 
     @Column(name = "plate_id", nullable = false)
@@ -34,12 +34,12 @@ public class MenuHasPlatePK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuHasPlatePK that = (MenuHasPlatePK) o;
-        return typeId == that.typeId &&
+        return menuId == that.menuId &&
                 plateId == that.plateId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(typeId, plateId);
+        return Objects.hash(menuId, plateId);
     }
 }

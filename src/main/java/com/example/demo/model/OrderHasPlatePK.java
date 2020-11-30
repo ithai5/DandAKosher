@@ -1,4 +1,4 @@
-package com.example.demo.model.manyToMany;
+package com.example.demo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Id;

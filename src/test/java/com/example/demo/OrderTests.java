@@ -1,11 +1,10 @@
 package com.example.demo;
 
 import com.example.demo.model.Order;
-import com.example.demo.model.manyToMany.OrderHasPlate;
+import com.example.demo.model.OrderHasPlate;
 import com.example.demo.repository.OrderHasPlateRepo;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.PlateService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +28,7 @@ public class OrderTests {
     @Test
     //test to see if create menuOrder works
     void createMenuOrder(){
-
+        /*
         int id = 7;
         //Dummy data
 
@@ -41,7 +40,7 @@ public class OrderTests {
         orderHasPlateRepo.save(new OrderHasPlate(order, null));
         //Should be true
         //Assertions.assertEquals(orderDummy, orderHasPlateRepo.save(new OrderHasPlate(order, null)));
-
+        */
 
     }
 

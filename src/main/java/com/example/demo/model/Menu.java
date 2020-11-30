@@ -1,27 +1,14 @@
 package com.example.demo.model;
 
-import com.example.demo.model.manyToMany.MenuHasPlate;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Menu {
     private int id;
-    private String typeName;
-    private BigDecimal basePrice;
-    private Collection<MenuHasPlate> content;
-
-    public Menu(int id, String typeName, BigDecimal basePrice) {
-        this.id = id;
-        this.typeName = typeName;
-        this.basePrice = basePrice;
-    }
-
-    public Menu() {
-    }
+    private String name;
+    private BigDecimal price;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -34,23 +21,23 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "type_name", nullable = true, length = 20)
-    public String getTypeName() {
-        return typeName;
+    @Column(name = "name", nullable = true, length = 20)
+    public String getName() {
+        return name;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
-    @Column(name = "base_price", nullable = true, precision = 2)
-    public BigDecimal getBasePrice() {
-        return basePrice;
+    @Column(name = "price", nullable = true, precision = 2)
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setBasePrice(BigDecimal basePrice) {
-        this.basePrice = basePrice;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     @Override
@@ -59,21 +46,12 @@ public class Menu {
         if (o == null || getClass() != o.getClass()) return false;
         Menu menu = (Menu) o;
         return id == menu.id &&
-                Objects.equals(typeName, menu.typeName) &&
-                Objects.equals(basePrice, menu.basePrice);
+                Objects.equals(name, menu.name) &&
+                Objects.equals(price, menu.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, typeName, basePrice);
-    }
-
-    @OneToMany(mappedBy = "menuByTypeId")
-    public Collection<MenuHasPlate> getContent() {
-        return content;
-    }
-
-    public void setContent(Collection<MenuHasPlate> content) {
-        this.content = content;
+        return Objects.hash(id, name, price);
     }
 }

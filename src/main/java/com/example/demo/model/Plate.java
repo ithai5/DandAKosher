@@ -1,36 +1,17 @@
 package com.example.demo.model;
 
-import com.example.demo.model.manyToMany.MenuHasPlate;
-import com.example.demo.model.manyToMany.OrderHasPlate;
-
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Plate {
     private int id;
-    private String plateName;
-    private BigDecimal platePrice;
-    private Collection<MenuHasPlate> menus;
-    private Collection<OrderHasPlate> orderHasPlatesById;
-    public Plate() {
-    }
-
-    public Plate(int id, String plateName, BigDecimal platePrice, Collection<MenuHasPlate> menus, Collection<OrderHasPlate> orderHasPlatesById) {
-        this.id = id;
-        this.plateName = plateName;
-        this.platePrice = platePrice;
-        this.menus = menus;
-        this.orderHasPlatesById = orderHasPlatesById;
-    }
-
-    public Plate(int id, String plateName, BigDecimal platePrice) {
-        this.id = id;
-        this.plateName = plateName;
-        this.platePrice = platePrice;
-    }
+    private String name;
+    private BigDecimal price;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -43,23 +24,23 @@ public class Plate {
     }
 
     @Basic
-    @Column(name = "plate_name", nullable = true, length = 30)
-    public String getPlateName() {
-        return plateName;
+    @Column(name = "name", nullable = true, length = 30)
+    public String getName() {
+        return name;
     }
 
-    public void setPlateName(String plateName) {
-        this.plateName = plateName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
-    @Column(name = "plate_price", nullable = true, precision = 2)
-    public BigDecimal getPlatePrice() {
-        return platePrice;
+    @Column(name = "price", nullable = true, precision = 2)
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setPlatePrice(BigDecimal platePrice) {
-        this.platePrice = platePrice;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     @Override
@@ -68,39 +49,12 @@ public class Plate {
         if (o == null || getClass() != o.getClass()) return false;
         Plate plate = (Plate) o;
         return id == plate.id &&
-                Objects.equals(plateName, plate.plateName) &&
-                Objects.equals(platePrice, plate.platePrice);
+                Objects.equals(name, plate.name) &&
+                Objects.equals(price, plate.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, plateName, platePrice);
-    }
-
-    @OneToMany(mappedBy = "plateByPlateId", fetch = FetchType.EAGER)
-    public Collection<MenuHasPlate> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(Collection<MenuHasPlate> menus) {
-        this.menus = menus;
-    }
-
-    @Override
-    public String toString() {
-        return "Plate{" +
-                "id=" + id +
-                ", plateName='" + plateName + '\'' +
-                ", platePrice=" + platePrice +
-                '}';
-    }
-
-    @OneToMany(mappedBy = "plateByPlateId")
-    public Collection<OrderHasPlate> getOrderHasPlatesById() {
-        return orderHasPlatesById;
-    }
-
-    public void setOrderHasPlatesById(Collection<OrderHasPlate> orderHasPlatesById) {
-        this.orderHasPlatesById = orderHasPlatesById;
+        return Objects.hash(id, name, price);
     }
 }

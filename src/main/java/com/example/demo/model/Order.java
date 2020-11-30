@@ -1,10 +1,10 @@
 package com.example.demo.model;
 
-import com.example.demo.model.manyToMany.OrderHasPlate;
-
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -12,33 +12,10 @@ public class Order {
     private int id;
     private Integer totalPeople;
     private BigDecimal totalPrice;
-    private Integer typeId;
+    private Integer menuId;
     private Integer eventId;
     private Integer customerId;
     private Integer messageId;
-    private Collection<OrderHasPlate> extras;
-
-    public Order() {
-    }
-
-    public Order(Integer totalPeople, BigDecimal totalPrice, Integer typeId, Integer eventId, Integer customerId, Integer messageId) {
-        this.totalPeople = totalPeople;
-        this.totalPrice = totalPrice;
-        this.typeId = typeId;
-        this.eventId = eventId;
-        this.customerId = customerId;
-        this.messageId = messageId;
-    }
-
-    public Order(int id, Integer totalPeople, BigDecimal totalPrice, Integer typeId, Integer eventId, Integer customerId, Integer messageId) {
-        this.id = id;
-        this.totalPeople = totalPeople;
-        this.totalPrice = totalPrice;
-        this.typeId = typeId;
-        this.eventId = eventId;
-        this.customerId = customerId;
-        this.messageId = messageId;
-    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -71,13 +48,13 @@ public class Order {
     }
 
     @Basic
-    @Column(name = "type_id", nullable = true)
-    public Integer getTypeId() {
-        return typeId;
+    @Column(name = "menu_id", nullable = true)
+    public Integer getMenuId() {
+        return menuId;
     }
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
+    public void setMenuId(Integer menuId) {
+        this.menuId = menuId;
     }
 
     @Basic
@@ -118,7 +95,7 @@ public class Order {
         return id == order.id &&
                 Objects.equals(totalPeople, order.totalPeople) &&
                 Objects.equals(totalPrice, order.totalPrice) &&
-                Objects.equals(typeId, order.typeId) &&
+                Objects.equals(menuId, order.menuId) &&
                 Objects.equals(eventId, order.eventId) &&
                 Objects.equals(customerId, order.customerId) &&
                 Objects.equals(messageId, order.messageId);
@@ -126,15 +103,6 @@ public class Order {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, totalPeople, totalPrice, typeId, eventId, customerId, messageId);
-    }
-
-    @OneToMany(mappedBy = "orderByOrderId")
-    public Collection<OrderHasPlate> getExtras() {
-        return extras;
-    }
-
-    public void setExtras(Collection<OrderHasPlate> extras) {
-        this.extras = extras;
+        return Objects.hash(id, totalPeople, totalPrice, menuId, eventId, customerId, messageId);
     }
 }
