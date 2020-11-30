@@ -7,6 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name="order")
 public class Order {
+    @Id
     private int id;
     private Integer totalPeople;
     private BigDecimal totalPrice;
@@ -14,6 +15,19 @@ public class Order {
     private Integer eventId;
     private Integer customerId;
     private Integer messageId;
+
+    public Order() {
+    }
+
+    public Order(int id, Integer totalPeople, BigDecimal totalPrice, Integer menuId, Integer eventId, Integer customerId, Integer messageId) {
+        this.id = id;
+        this.totalPeople = totalPeople;
+        this.totalPrice = totalPrice;
+        this.menuId = menuId;
+        this.eventId = eventId;
+        this.customerId = customerId;
+        this.messageId = messageId;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
