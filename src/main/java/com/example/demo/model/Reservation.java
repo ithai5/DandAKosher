@@ -5,9 +5,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name="order")
-public class Order {
-    @Id
+@Table(name="reservation")
+public class Reservation {
     private int id;
     private Integer totalPeople;
     private BigDecimal totalPrice;
@@ -16,10 +15,10 @@ public class Order {
     private Integer customerId;
     private Integer messageId;
 
-    public Order() {
+    public Reservation() {
     }
 
-    public Order(int id, Integer totalPeople, BigDecimal totalPrice, Integer menuId, Integer eventId, Integer customerId, Integer messageId) {
+    public Reservation(int id, Integer totalPeople, BigDecimal totalPrice, Integer menuId, Integer eventId, Integer customerId, Integer messageId) {
         this.id = id;
         this.totalPeople = totalPeople;
         this.totalPrice = totalPrice;
@@ -103,18 +102,20 @@ public class Order {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return id == order.id &&
-                Objects.equals(totalPeople, order.totalPeople) &&
-                Objects.equals(totalPrice, order.totalPrice) &&
-                Objects.equals(menuId, order.menuId) &&
-                Objects.equals(eventId, order.eventId) &&
-                Objects.equals(customerId, order.customerId) &&
-                Objects.equals(messageId, order.messageId);
+        Reservation that = (Reservation) o;
+        return id == that.id &&
+                Objects.equals(totalPeople, that.totalPeople) &&
+                Objects.equals(totalPrice, that.totalPrice) &&
+                Objects.equals(menuId, that.menuId) &&
+                Objects.equals(eventId, that.eventId) &&
+                Objects.equals(customerId, that.customerId) &&
+                Objects.equals(messageId, that.messageId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, totalPeople, totalPrice, menuId, eventId, customerId, messageId);
     }
+
+
 }

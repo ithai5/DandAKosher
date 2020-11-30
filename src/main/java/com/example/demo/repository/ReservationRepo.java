@@ -1,9 +1,9 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Order;
+import com.example.demo.model.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OrderRepo extends JpaRepository<Order, Integer> {
+public interface ReservationRepo extends JpaRepository<Reservation, Integer> {
 }

@@ -5,11 +5,20 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name="plate")
-public class Plate {
+@Table(name="dish")
+public class Dish {
     private int id;
     private String name;
     private BigDecimal price;
+
+    public Dish() {
+    }
+
+    public Dish(int id, String name, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -45,10 +54,10 @@ public class Plate {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Plate plate = (Plate) o;
-        return id == plate.id &&
-                Objects.equals(name, plate.name) &&
-                Objects.equals(price, plate.price);
+        Dish dish = (Dish) o;
+        return id == dish.id &&
+                Objects.equals(name, dish.name) &&
+                Objects.equals(price, dish.price);
     }
 
     @Override

@@ -13,13 +13,12 @@ public class Menu {
 
     public Menu() {
     }
+
     public Menu(int id, String name, BigDecimal price) {
         this.id = id;
         this.name = name;
         this.price = price;
     }
-
-
 
     @Id
     @Column(name = "id", nullable = false)

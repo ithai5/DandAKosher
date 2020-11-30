@@ -1,31 +1,28 @@
 package com.example.demo.model;
 
-import org.hibernate.annotations.Immutable;
-
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
-@Immutable
 @Entity
-@Table(name= "menucontent")
+@Table(name="menucontent")
 public class MenuContent {
-    @Id
     private int id;
     private String menuName;
-    private Double price;
-    private String plateName;
+    private BigDecimal price;
+    private String dishName;
 
     public MenuContent() {
     }
 
-    public MenuContent(int id, String menuName, Double price, String plateName) {
+    public MenuContent(int id, String menuName, BigDecimal price, String dishName) {
         this.id = id;
         this.menuName = menuName;
         this.price = price;
-        this.plateName = plateName;
+        this.dishName = dishName;
     }
 
-    @Basic
+    @Id
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -47,22 +44,22 @@ public class MenuContent {
 
     @Basic
     @Column(name = "price", nullable = true, precision = 2)
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
     @Basic
-    @Column(name = "plate_name", nullable = true, length = 30)
-    public String getPlateName() {
-        return plateName;
+    @Column(name = "dish_name", nullable = true, length = 30)
+    public String getDishName() {
+        return dishName;
     }
 
-    public void setPlateName(String plateName) {
-        this.plateName = plateName;
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
     }
 
     @Override
@@ -73,21 +70,11 @@ public class MenuContent {
         return id == that.id &&
                 Objects.equals(menuName, that.menuName) &&
                 Objects.equals(price, that.price) &&
-                Objects.equals(plateName, that.plateName);
+                Objects.equals(dishName, that.dishName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, menuName, price, plateName);
-    }
-
-    @Override
-    public String toString() {
-        return "MenuContent{" +
-                "id=" + id +
-                ", menuName='" + menuName + '\'' +
-                ", price=" + price +
-                ", plateName='" + plateName + '\'' +
-                '}';
+        return Objects.hash(id, menuName, price, dishName);
     }
 }

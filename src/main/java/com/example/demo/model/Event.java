@@ -3,12 +3,13 @@ package com.example.demo.model;
 import javax.persistence.*;
 import java.util.Objects;
 
-
 @Entity
 @Table(name="event")
 public class Event {
     private int id;
     private String eventName;
+
+
 
     @Id
     @Column(name = "id", nullable = false)

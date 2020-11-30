@@ -4,7 +4,6 @@ import com.example.demo.model.Menu;
 import com.example.demo.model.MenuContent;
 import com.example.demo.repository.MenuContentRepo;
 import com.example.demo.service.MenuService;
-import org.hibernate.HibernateException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

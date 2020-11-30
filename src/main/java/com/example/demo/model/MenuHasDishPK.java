@@ -1,17 +1,16 @@
 package com.example.demo.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "menu_has_plate", schema = "dakosher", catalog = "")
-@IdClass(MenuHasPlatePK.class)
-public class MenuHasPlate {
+public class MenuHasDishPK implements Serializable {
     private int menuId;
-    private int plateId;
+    private int dishId;
 
-    @Id
     @Column(name = "menu_id", nullable = false)
+    @Id
     public int getMenuId() {
         return menuId;
     }
@@ -20,27 +19,27 @@ public class MenuHasPlate {
         this.menuId = menuId;
     }
 
+    @Column(name = "dish_id", nullable = false)
     @Id
-    @Column(name = "plate_id", nullable = false)
-    public int getPlateId() {
-        return plateId;
+    public int getDishId() {
+        return dishId;
     }
 
-    public void setPlateId(int plateId) {
-        this.plateId = plateId;
+    public void setDishId(int dishId) {
+        this.dishId = dishId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MenuHasPlate that = (MenuHasPlate) o;
+        MenuHasDishPK that = (MenuHasDishPK) o;
         return menuId == that.menuId &&
-                plateId == that.plateId;
+                dishId == that.dishId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(menuId, plateId);
+        return Objects.hash(menuId, dishId);
     }
 }
