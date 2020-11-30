@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Customer;
+import com.example.demo.model.CustomerMessage;
 import com.example.demo.model.Message;
 import com.example.demo.repository.CustomerRepo;
 import com.example.demo.repository.MessageRepo;
@@ -53,11 +54,30 @@ public class MessageService {
         javaMailSender.send(toEmail);
     }
 
-    public void handleSendMessage(Customer cInfo, Message mInfo) {
+    public void handleSendMessage( Customer cInfo, Message mInfo) {
         Customer customer = customerService.customerExists(cInfo);
         mInfo.setCustomerId(customer.getId());
         Message message = createMessage(mInfo);
         sendMessageToEmail(message);
     }
+    public void handleSendMessageAPI(CustomerMessage customerMessage) {
+        Customer cInfo = new Customer(
+                0,
+                customerMessage.getFullName(),
+                customerMessage.getPhone(),
+                customerMessage.getEmail(),
+                customerMessage.getIsSubscribed()? (byte)(1): (byte)(0));
+        Customer customer = customerService.customerExists(cInfo);
+        Message mInfo = new Message(
+                0,
+                customerMessage.getSubject(),
+                customerMessage.getContent(),
+                0
+        );
+        mInfo.setCustomerId(customer.getId());
+        Message message = createMessage(mInfo);
+        sendMessageToEmail(message);
+    }
+
 
 }
