@@ -4,9 +4,12 @@ import com.example.demo.model.Menu;
 import com.example.demo.model.MenuContent;
 import com.example.demo.repository.MenuContentRepo;
 import com.example.demo.service.MenuService;
+import org.hibernate.HibernateException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.orm.jpa.JpaSystemException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,15 +28,14 @@ public class MenuTests {
 
     @Test
         //test to see if create menuType works
-    void createMenuType(){
-        /*
+    void createMenu(){
         int id = 7;
         //Dummy data
-        Menu menuType = new Menu(id, "deluxePlus", 100.75);
-        Menu menuTypeDummy = new Menu(id, "deluxePlus", 100.75);
+        Menu menu = new Menu(id, "deluxePlus", BigDecimal.valueOf(100.75));
+        Menu menuDummy = new Menu(id, "deluxePlus", BigDecimal.valueOf(100.75));
         //Should be true
-        Assertions.assertEquals(menuTypeDummy, menuService.createMenuType(menuType));
-        */
+        Assertions.assertEquals(menuDummy, menuService.createMenu(menu));
+
     }
 
     @Test
@@ -44,10 +46,6 @@ public class MenuTests {
         System.out.println(ls2);
         List<MenuContent> ls3 = menuContentRepo.findAllById(1);
         System.out.println(ls3);
-        System.out.println(menuContentRepo.getOne(1));
-
-
-       // boolean mc1 = menuContentRepo.exists(new MenuContent(1, "Deluxe", BigDecimal.valueOf(500.00), "Chicken Wrap"));
-        System.out.println(menuService.findAll());
+        Assertions.assertThrows(JpaSystemException.class, () -> menuContentRepo.findById(1));
     }
 }

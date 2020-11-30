@@ -2,14 +2,12 @@ package com.example.demo.model;
 
 import org.hibernate.annotations.Immutable;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Immutable
 @Entity
+@Table(name= "menucontent")
 public class MenuContent {
     @Id
     private int id;

@@ -5,10 +5,21 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
+@Table(name="menu")
 public class Menu {
     private int id;
     private String name;
     private BigDecimal price;
+
+    public Menu() {
+    }
+    public Menu(int id, String name, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+
 
     @Id
     @Column(name = "id", nullable = false)

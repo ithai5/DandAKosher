@@ -1,12 +1,11 @@
 package com.example.demo.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
+
 @Entity
+@Table(name="event")
 public class Event {
     private int id;
     private String eventName;
