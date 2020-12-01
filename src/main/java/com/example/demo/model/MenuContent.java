@@ -5,30 +5,30 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name="menucontent")
+@Table(name= "menu_content", schema = "dakosher")
 public class MenuContent {
-    private int id;
+    private String id;
     private String menuName;
     private BigDecimal price;
     private String dishName;
-
     public MenuContent() {
     }
 
-    public MenuContent(int id, String menuName, BigDecimal price, String dishName) {
+    public MenuContent(String id, String menuName, BigDecimal price, String dishName) {
         this.id = id;
         this.menuName = menuName;
         this.price = price;
         this.dishName = dishName;
     }
 
-    @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    @Basic
+    @Column(name = "id", nullable = true, length = 36)
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId (String id)
+    {
         this.id = id;
     }
 
@@ -53,6 +53,7 @@ public class MenuContent {
     }
 
     @Basic
+    @Id
     @Column(name = "dish_name", nullable = true, length = 30)
     public String getDishName() {
         return dishName;
@@ -76,5 +77,11 @@ public class MenuContent {
     @Override
     public int hashCode() {
         return Objects.hash(id, menuName, price, dishName);
+    }
+
+    @Override
+    public String toString ()
+    {
+        return "MenuContent{" + "id='" + id + '\'' + ", menuName='" + menuName + '\'' + ", price=" + price + ", dishName='" + dishName + '\'' + '}';
     }
 }

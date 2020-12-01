@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MenuContentRepo extends JpaRepository<MenuContent, Integer> {
+public interface MenuContentRepo extends JpaRepository<MenuContent, String> {
 
     List<MenuContent> findAllById(int id);
 

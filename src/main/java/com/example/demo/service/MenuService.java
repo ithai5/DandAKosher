@@ -22,14 +22,17 @@ public class MenuService {
     }
 
 
-    public ResponseEntity<Menu> createMenu(Menu menu){
-    try {
-        Menu _menu = menuRepo.save(menu);
-        return new ResponseEntity<>(_menu, HttpStatus.OK);
-    } catch (Exception e){
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<Menu> createMenu(Menu menu)
+    {
+        try {
+            Menu _menu = menuRepo.save(menu);
+            return new ResponseEntity<>(_menu, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
+/*
     public ResponseEntity<Menu> findById(int id) {
         Optional<Menu> info = menuRepo.findById(id);
         if (info.isPresent()) {
@@ -43,5 +46,7 @@ public class MenuService {
     }
 
     public ResponseEntity<Menu> update
+
+ */
 
 }

@@ -21,8 +21,7 @@ public class MenuRestController {
     public MenuRestController(MenuService menuService) {
         this.menuService=menuService;
     }
-
-
+/*
     @GetMapping("/menus")
     public ResponseEntity<List<Menu>> getAllMenus(){
         return menuService.findAll();
@@ -33,14 +32,18 @@ public class MenuRestController {
         return menuService.findById(id);
     }
 
+        @PutMapping("/updateMenu/{id}")
+    public ResponseEntity<Menu> updateMenu(@PathVariable("id") int id){
+
+    }
+
+ */
+
     @PostMapping("/createMenu")
     public ResponseEntity<Menu> createMenu(@RequestBody Menu menu){
         return menuService.createMenu(menu);
     }
 
-    @PutMapping("/updateMenu/{id}")
-    public ResponseEntity<Menu> updateMenu(@PathVariable("id") int id){
 
-    }
 
 }
