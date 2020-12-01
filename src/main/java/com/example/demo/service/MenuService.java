@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.model.Menu;
 import com.example.demo.repository.MenuRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +22,15 @@ public class MenuService {
     }
 
 
-    public Menu createMenu(Menu menu){
-        return menuRepo.save(menu);
+    public ResponseEntity<Menu> createMenu(Menu menu){
+    try {
+        Menu _menu = menuRepo.save(menu);
+        return new ResponseEntity<>(_menu, HttpStatus.OK);
+    } catch (Exception e){
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public Menu findById(int id) {
+    public ResponseEntity<Menu> findById(int id) {
         Optional<Menu> info = menuRepo.findById(id);
         if (info.isPresent()) {
             return info.get();
@@ -32,8 +38,10 @@ public class MenuService {
         return null;
     }
 
-    public List<Menu> findAll() {
+    public ResponseEntity<List<Menu>> findAll() {
         return menuRepo.findAll();
     }
+
+    public ResponseEntity<Menu> update
 
 }
