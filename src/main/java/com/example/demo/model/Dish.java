@@ -14,6 +14,10 @@ public class Dish {
     public Dish() {
     }
 
+    public Dish(String name) {
+        this.name = name;
+    }
+
     public Dish(int id, String name, BigDecimal price) {
         this.id = id;
         this.name = name;

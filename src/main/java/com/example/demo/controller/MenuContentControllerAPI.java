@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Dish;
 import com.example.demo.model.MenuContent;
 import com.example.demo.service.MenuContentService;
+import com.sun.mail.iap.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,5 +27,9 @@ public class MenuContentControllerAPI {
         return menuContentService.getMenuContentByName(name);
     }
 
+    @GetMapping("/menuContentDish/{name}")
+    public ResponseEntity<List<Dish>> getDishesForMenu(@PathVariable("name") String name) {
+        return menuContentService.getDishesForMenu(name);
+    }
 
 }
