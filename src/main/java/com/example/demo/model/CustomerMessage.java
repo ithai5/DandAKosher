@@ -146,4 +146,17 @@ public class CustomerMessage {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "CustomerMessage{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", isSubscribed=" + isSubscribed +
+                ", subject='" + subject + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

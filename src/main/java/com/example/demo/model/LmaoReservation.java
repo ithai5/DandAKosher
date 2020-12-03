@@ -1,13 +1,12 @@
 package com.example.demo.model;
 
-import javax.persistence.*;
+import com.example.demo.model.Dish;
+
+
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 
-@Entity
-@Table(name="reservationinfo")
-public class ReservationInfo {
+public class LmaoReservation {
     private int id;
     private Integer totalPeople;
     private BigDecimal totalPrice;
@@ -18,10 +17,10 @@ public class ReservationInfo {
     private String content;
     private List<Dish> extras;
 
-    public ReservationInfo() {
+    public LmaoReservation() {
     }
 
-    public ReservationInfo(int id, Integer totalPeople, BigDecimal totalPrice, String menuName, String eventName, String email, String dishName, String content) {
+    public LmaoReservation(int id, Integer totalPeople, BigDecimal totalPrice, String menuName, String eventName, String email, String dishName, String content, List<Dish> extras) {
         this.id = id;
         this.totalPeople = totalPeople;
         this.totalPrice = totalPrice;
@@ -30,10 +29,9 @@ public class ReservationInfo {
         this.email = email;
         this.dishName = dishName;
         this.content = content;
+        this.extras = extras;
     }
 
-    @Id
-    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -42,8 +40,6 @@ public class ReservationInfo {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "total_people", nullable = true)
     public Integer getTotalPeople() {
         return totalPeople;
     }
@@ -52,8 +48,6 @@ public class ReservationInfo {
         this.totalPeople = totalPeople;
     }
 
-    @Basic
-    @Column(name = "total_price", nullable = true, precision = 2)
     public BigDecimal getTotalPrice() {
         return totalPrice;
     }
@@ -62,8 +56,6 @@ public class ReservationInfo {
         this.totalPrice = totalPrice;
     }
 
-    @Basic
-    @Column(name = "menu_name", nullable = true, length = 20)
     public String getMenuName() {
         return menuName;
     }
@@ -72,8 +64,6 @@ public class ReservationInfo {
         this.menuName = menuName;
     }
 
-    @Basic
-    @Column(name = "event_name", nullable = true, length = 20)
     public String getEventName() {
         return eventName;
     }
@@ -82,8 +72,6 @@ public class ReservationInfo {
         this.eventName = eventName;
     }
 
-    @Basic
-    @Column(name = "email", nullable = false, length = 50)
     public String getEmail() {
         return email;
     }
@@ -92,8 +80,6 @@ public class ReservationInfo {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "dish_name", nullable = true, length = 30)
     public String getDishName() {
         return dishName;
     }
@@ -102,8 +88,6 @@ public class ReservationInfo {
         this.dishName = dishName;
     }
 
-    @Basic
-    @Column(name = "content", nullable = true, length = 256)
     public String getContent() {
         return content;
     }
@@ -112,29 +96,17 @@ public class ReservationInfo {
         this.content = content;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ReservationInfo that = (ReservationInfo) o;
-        return id == that.id &&
-                Objects.equals(totalPeople, that.totalPeople) &&
-                Objects.equals(totalPrice, that.totalPrice) &&
-                Objects.equals(menuName, that.menuName) &&
-                Objects.equals(eventName, that.eventName) &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(dishName, that.dishName) &&
-                Objects.equals(content, that.content);
+    public List<Dish> getExtras() {
+        return extras;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, totalPeople, totalPrice, menuName, eventName, email, dishName, content);
+    public void setExtras(List<Dish> extras) {
+        this.extras = extras;
     }
 
     @Override
     public String toString() {
-        return "ReservationInfo{" +
+        return "LmaoReservation{" +
                 "id=" + id +
                 ", totalPeople=" + totalPeople +
                 ", totalPrice=" + totalPrice +
@@ -143,6 +115,7 @@ public class ReservationInfo {
                 ", email='" + email + '\'' +
                 ", dishName='" + dishName + '\'' +
                 ", content='" + content + '\'' +
+                ", extras=" + extras +
                 '}';
     }
 }
