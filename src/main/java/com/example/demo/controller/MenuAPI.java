@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class MenuRestController {
+public class MenuAPI {
 
     private final MenuService menuService;
 
     @Autowired
-    public MenuRestController(MenuService menuService) {
+    public MenuAPI(MenuService menuService) {
         this.menuService=menuService;
     }
 /*

@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
-public class MessageControllerAPI {
+public class MessageAPI {
 
     private final MessageService messageService;
     @Autowired
-    public MessageControllerAPI(MessageService messageService){
+    public MessageAPI(MessageService messageService){
         this.messageService = messageService;
     }
     @PostMapping(value = "/sendMessage", consumes = "application/json")
