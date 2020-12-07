@@ -15,7 +15,6 @@ import java.util.List;
 public class MenuContentService {
 
     private final MenuContentRepo menuContentRepo;
-
     @Autowired
     public MenuContentService (MenuContentRepo menuContentRepo){
         super();
@@ -34,16 +33,6 @@ public class MenuContentService {
         List<MenuContent> ls = new ArrayList<>();
         ls.addAll(menuContentRepo.findAllByMenuName(name));
         return new ResponseEntity<>(ls, HttpStatus.OK);
-    }
-
-    public ResponseEntity<List<Dish>> getDishesForMenu(String menuName) {
-        List<Dish> menuDishes = new ArrayList<>();
-        List<MenuContent> ls = menuContentRepo.findAllByMenuName(menuName);
-        for (MenuContent dish : ls) {
-            menuDishes.add(new Dish(dish.getDishName()));
-        }
-
-        return new ResponseEntity<>(menuDishes, HttpStatus.OK);
     }
 
 }

@@ -10,6 +10,15 @@ public class ReservationHasDish {
     private int reservationId;
     private int dishId;
 
+    public ReservationHasDish(int reservationId, int dishId) {
+        this.reservationId = reservationId;
+        this.dishId = dishId;
+    }
+
+    public ReservationHasDish() {
+
+    }
+
     @Id
     @Column(name = "reservation_id", nullable = false)
     public int getReservationId() {

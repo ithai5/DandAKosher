@@ -1,8 +1,4 @@
 package com.example.demo.model;
-
-import com.example.demo.model.Dish;
-
-
 import java.math.BigDecimal;
 import java.util.List;
 

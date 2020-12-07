@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class DishService {
     }
 
     public List<Dish> findAll(){return dishRepo.findAll();}
+
+    public Dish findDishByName(String name) {return dishRepo.findDishByName(name);}
 
     public ResponseEntity<List<Dish>> getExtrasForMenu(String menuName) {
 
@@ -50,5 +53,15 @@ public class DishService {
             }
         }
         return new ResponseEntity<>(extras, HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Dish>> getDishesForMenu(String menuName) {
+        List<Dish> menuDishes = new ArrayList<>();
+        List<MenuContent> ls = menuContentService.getMenuContentByName(menuName).getBody();
+        for (MenuContent dish : ls) {
+            menuDishes.add(dishRepo.findDishByName(dish.getDishName()));
+        }
+
+        return new ResponseEntity<>(menuDishes, HttpStatus.OK);
     }
 }

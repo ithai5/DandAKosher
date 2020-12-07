@@ -32,15 +32,20 @@ public class MenuService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-/*
+
+    public ResponseEntity<Menu> findMenuByName(String name) {
+        return new ResponseEntity<>(menuRepo.findMenuByName(name), HttpStatus.OK);
+    }
+
     public ResponseEntity<Menu> findById(int id) {
         Optional<Menu> info = menuRepo.findById(id);
         if (info.isPresent()) {
-            return info.get();
+            return new ResponseEntity<>(info.get(), HttpStatus.OK);
         }
         return null;
     }
 
+    /*
     public ResponseEntity<List<Menu>> findAll() {
         return menuRepo.findAll();
     }

@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.*;
-import org.springframework.http.MediaType;
+import com.example.demo.service.ReservationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,9 +13,18 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class ReservationAPI {
 
+    private final ReservationService reservationService;
+
+    @Autowired
+    public ReservationAPI(ReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
+
+
     @PostMapping(value="/createReservation", consumes = "application/json")
-    public void createReservation(@RequestBody LmaoReservation reservationInfo) {
+    public ResponseEntity<Reservation> createReservation(@RequestBody LmaoReservation reservationInfo) {
         System.out.println(reservationInfo);
+        return reservationService.handleReservationFromWeb(reservationInfo);
     }
 
     /*

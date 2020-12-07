@@ -117,5 +117,16 @@ public class Reservation {
         return Objects.hash(id, totalPeople, totalPrice, menuId, eventId, customerId, messageId);
     }
 
-
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", totalPeople=" + totalPeople +
+                ", totalPrice=" + totalPrice +
+                ", menuId=" + menuId +
+                ", eventId=" + eventId +
+                ", customerId=" + customerId +
+                ", messageId=" + messageId +
+                '}';
+    }
 }

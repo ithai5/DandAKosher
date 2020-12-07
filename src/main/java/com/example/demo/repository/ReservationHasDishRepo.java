@@ -4,6 +4,10 @@ import com.example.demo.model.ReservationHasDish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ReservationHasDishRepo extends JpaRepository<ReservationHasDish, Integer> {
+
+    List<ReservationHasDish> findAllByReservationId(int reservationId);
 }

@@ -47,7 +47,7 @@ public class MenuTests {
         System.out.println(ls3);
         //Assertions.assertThrows(JpaSystemException.class, () -> menuContentService.findById(1));
     }
-
+    /*
     @Test
     void dishesForMenu() {
         //Last updated: 02-12-2020
@@ -57,4 +57,5 @@ public class MenuTests {
         Assertions.assertEquals(totalDishesMenu1, menuContentService.getDishesForMenu("deluxe").getBody().size());
         Assertions.assertEquals(totalDishesMenu2, menuContentService.getDishesForMenu("basic").getBody().size());
     }
+    */
 }

@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DishRepo extends JpaRepository<Dish, Integer> {
 
+    Dish findDishByName(String name);
+
 }

@@ -20,4 +20,8 @@ public class EventService {
     }
 
     public ResponseEntity<List<Event>> findAll() {return new ResponseEntity<>(eventRepo.findAll(), HttpStatus.OK);}
+
+    public ResponseEntity<Event> findByEventName(String eventName) {
+        return new ResponseEntity<>(eventRepo.findByEventName(eventName), HttpStatus.OK);
+    }
 }

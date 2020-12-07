@@ -46,4 +46,8 @@ public class CustomerService {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
+    public ResponseEntity<Customer> findCustomerByEmail(String email) {
+        return new ResponseEntity<>(customerRepo.findByEmail(email), HttpStatus.OK);
+    }
 }
