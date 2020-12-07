@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.model.views;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

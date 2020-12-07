@@ -1,9 +1,13 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Dish;
-import com.example.demo.model.LmaoReservation;
+import com.example.demo.model.Event;
+import com.example.demo.model.views.MenuContent;
+import com.example.demo.model.views.ReservationInfo;
 import com.example.demo.model.Reservation;
-import com.example.demo.model.ReservationHasDish;
+import com.example.demo.model.manyToMany.ReservationHasDish;
+import com.example.demo.repository.DishRepo;
+import com.example.demo.repository.EventRepo;
 import com.example.demo.repository.ReservationHasDishRepo;
 import com.example.demo.repository.ReservationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,23 +23,22 @@ public class ReservationService {
 
     private final ReservationRepo reservationRepo;
     private final ReservationHasDishRepo reservationHasDishRepo;
+    private final DishRepo dishRepo;
     private final MenuService menuService;
-    private final DishService dishService;
     private final CustomerService customerService;
-    private final EventService eventService;
+    private final EventRepo eventRepo;
 
     @Autowired
-    public ReservationService(ReservationRepo reservationRepo,
-                              ReservationHasDishRepo reservationHasDishRepo,
-                              MenuService menuService, DishService dishService,
-                              CustomerService customerService, EventService eventService){
+    public ReservationService(ReservationRepo reservationRepo, ReservationHasDishRepo reservationHasDishRepo,
+                              MenuService menuService, CustomerService customerService,
+                              EventRepo eventRepo, DishRepo dishRepo){
         super();
         this.reservationRepo = reservationRepo;
         this.reservationHasDishRepo = reservationHasDishRepo;
         this.menuService = menuService;
-        this.dishService = dishService;
         this.customerService = customerService;
-        this.eventService = eventService;
+        this.eventRepo = eventRepo;
+        this.dishRepo = dishRepo;
     }
 
     public Reservation findById(int id) {
@@ -45,7 +47,7 @@ public class ReservationService {
 
 
     //Create reservation has to be called twice in order to update the price attribute
-    public ResponseEntity<Reservation> handleReservationFromWeb(LmaoReservation fromWeb) {
+    public ResponseEntity<Reservation> handleReservationFromWeb(ReservationInfo fromWeb) {
 
         int customerId = customerService.findCustomerByEmail(fromWeb.getEmail()).getBody().getId();
 
@@ -53,7 +55,7 @@ public class ReservationService {
         int menuId = menuService.findMenuByName(fromWeb.getMenuName()).getBody().getId();
 
         //Find event by name
-        int eventId = eventService.findByEventName(fromWeb.getEventName()).getBody().getId();
+        int eventId = eventRepo.findByEventName(fromWeb.getEventName()).getId();
 
         //Create the price (Needs a Reservation object)
         double totalPrice = calculatePrice(fromWeb);
@@ -88,11 +90,11 @@ public class ReservationService {
 
     public void addExtrasToReservation(int reservationId, List<Dish> extras) {
         for (Dish dish : extras) {
-            reservationHasDishRepo.save(new ReservationHasDish(reservationId, dishService.findDishByName(dish.getName()).getId()));
+            reservationHasDishRepo.save(new ReservationHasDish(reservationId, dishRepo.findDishByName(dish.getName()).getId()));
         }
     }
 
-    public Double calculatePrice(LmaoReservation reservation) {
+    public Double calculatePrice(ReservationInfo reservation) {
         double basePrice = menuService.findMenuByName(reservation.getMenuName()).getBody().
                 getPrice().doubleValue();
         if (!reservation.getExtras().isEmpty()) {
@@ -111,4 +113,29 @@ public class ReservationService {
 
         return basePrice * reservation.getTotalPeople();
     }
+
+    public ResponseEntity<List<Dish>> getExtrasForMenu(String menuName) {
+
+        List<MenuContent> fixedDishes = menuService.getMenuContentByName(menuName).getBody();
+        List<Dish> extras  = dishRepo.findAll();
+
+        //For each dish on the menu (i loop), check if a corresponding dish
+        //exists in the list of all dishes (j loop)
+        for (int i = 0; i < fixedDishes.size(); ++i) {
+            String menuDish = fixedDishes.get(i).getDishName();
+
+            //If this dish exists as part of the fixed menu,
+            //remove it for the optional extras and decrement
+            //the counter, so no element is skipped
+            for(int j = 0; j < extras.size(); ++j) {
+                if (extras.get(j).getName().equals(menuDish)) {
+                    extras.remove(j);
+                    --j;
+                }
+            }
+        }
+        return new ResponseEntity<>(extras, HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Event>> findAllEvents() {return new ResponseEntity<>(eventRepo.findAll(), HttpStatus.OK);}
 }

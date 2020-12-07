@@ -1,14 +1,14 @@
 package com.example.demo;
 
 import com.example.demo.model.*;
-import com.example.demo.repository.ReservationInfoRepo;
+import com.example.demo.model.views.ReservationInfo;
+import com.example.demo.repository.DishRepo;
+import com.example.demo.repository.EventRepo;
 import com.example.demo.service.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,28 +18,21 @@ import java.util.List;
 public class ReservationTests {
 
     private final ReservationService reservationService;
-    private final ReservationInfoRepo reservationInfoRepo;
-    private final DishService dishService;
-    private final MenuContentService menuContentService;
-    private final EventService eventService;
     private final CustomerService customerService;
-    private final MessageService messageService;
     private final MenuService menuService;
+    private final DishRepo dishRepo;
+    private final EventRepo eventRepo;
 
 
     //Very high coupling, is it perhaps avoidable?
     @Autowired
-    public ReservationTests(ReservationService reservationService, ReservationInfoRepo reservationInfoRepo,
-                            DishService dishService, MenuContentService menuContentService, EventService eventService,
-                            CustomerService customerService, MessageService messageService, MenuService menuService){
+    public ReservationTests(ReservationService reservationService, CustomerService customerService,
+                            MenuService menuService, DishRepo dishRepo, EventRepo eventRepo){
         this.reservationService = reservationService;
-        this.reservationInfoRepo = reservationInfoRepo;
-        this.dishService = dishService;
-        this.menuContentService = menuContentService;
-        this.eventService = eventService;
         this.customerService = customerService;
-        this.messageService = messageService;
         this.menuService = menuService;
+        this.dishRepo = dishRepo;
+        this.eventRepo = eventRepo;
     }
 
     @Test
@@ -47,13 +40,13 @@ public class ReservationTests {
     void createReservation(){
         //The display object gotten from the website
         //Currently, the attributes id, totalPrice and dishName are superfluous
-        LmaoReservation fromWeb = new LmaoReservation(0, 6, null, "basic", "bar mitzvah", "rapMan@rapMail.rp", null, "lmaoReservation", null);
+        ReservationInfo fromWeb = new ReservationInfo(0, 6, null, "basic", "bar mitzvah", "rapMan@rapMail.rp", "lmaoReservation", null);
 
         //Setting the list of extras manually, cos it's a pain to do in one line
         List<Dish> extras = new ArrayList<>();
-        extras.add(dishService.findDishByName("Shoko bsakit"));
-        extras.add(dishService.findDishByName("Couscous"));
-        extras.add(dishService.findDishByName("Jakhnun"));
+        extras.add(dishRepo.findDishByName("Shoko bsakit"));
+        extras.add(dishRepo.findDishByName("Couscous"));
+        extras.add(dishRepo.findDishByName("Jakhnun"));
         fromWeb.setExtras(extras);
 
         //Info from display object needs to be converted to the correct ids to be stored in the database
@@ -64,7 +57,7 @@ public class ReservationTests {
         int menuId = menuService.findMenuByName(fromWeb.getMenuName()).getBody().getId();
 
         //Find event by name
-        int eventId = eventService.findByEventName(fromWeb.getEventName()).getBody().getId();
+        int eventId = eventRepo.findByEventName(fromWeb.getEventName()).getId();
 
         //Create the reservation (messageId might be outdated as an attribute)
         Reservation reservation = new Reservation(7, fromWeb.getTotalPeople(), null,
@@ -88,17 +81,12 @@ public class ReservationTests {
     }
 
     @Test
-    void printManyToManyTable() {
-        System.out.println(reservationInfoRepo.findAll());
-    }
-
-    @Test
     void loadExtrasForMenu() {
-        int totalDishes = dishService.findAll().size();
+        int totalDishes = dishRepo.findAll().size();
 
-        int expectedDishesMenu1 = totalDishes - menuContentService.getMenuContentByName("deluxe").getBody().size();
-        int expectedDishesMenu2 = totalDishes - menuContentService.getMenuContentByName("basic").getBody().size();
-        int expectedDishesMenu7 = totalDishes - menuContentService.getMenuContentByName("deluxeplus").getBody().size();
+        int expectedDishesMenu1 = totalDishes - menuService.getMenuContentByName("deluxe").getBody().size();
+        int expectedDishesMenu2 = totalDishes - menuService.getMenuContentByName("basic").getBody().size();
+        int expectedDishesMenu7 = totalDishes - menuService.getMenuContentByName("deluxeplus").getBody().size();
 
         //Test that total and expected numbers are larger than 0
         Assertions.assertTrue(totalDishes > 0);
@@ -113,9 +101,9 @@ public class ReservationTests {
 
         //Test that the method removes number of elements from the total list of dishes, corresponding to
         //the amount already existing as fixed parts of a menu
-        Assertions.assertEquals(expectedDishesMenu1, dishService.getExtrasForMenu("deluxe").getBody().size());
-        Assertions.assertEquals(expectedDishesMenu2, dishService.getExtrasForMenu("basic").getBody().size());
-        Assertions.assertEquals(expectedDishesMenu7, dishService.getExtrasForMenu("deluxeplus").getBody().size());
+        Assertions.assertEquals(expectedDishesMenu1, reservationService.getExtrasForMenu("deluxe").getBody().size());
+        Assertions.assertEquals(expectedDishesMenu2, reservationService.getExtrasForMenu("basic").getBody().size());
+        Assertions.assertEquals(expectedDishesMenu7, reservationService.getExtrasForMenu("deluxeplus").getBody().size());
     }
 
     @Test
@@ -123,7 +111,7 @@ public class ReservationTests {
         //Updated 02/12
         int totalEvents = 3;
 
-        Assertions.assertEquals(totalEvents, eventService.findAll().getBody().size());
+        Assertions.assertEquals(totalEvents, eventRepo.findAll().size());
     }
 
 

@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.MenuHasDish;
+import com.example.demo.model.manyToMany.MenuHasDish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

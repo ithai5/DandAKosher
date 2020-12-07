@@ -1,17 +1,16 @@
-package com.example.demo.model;
+package com.example.demo.model.manyToMany;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "menu_has_dish", schema = "dakosher", catalog = "")
-@IdClass(MenuHasDishPK.class)
-public class MenuHasDish {
+public class MenuHasDishPK implements Serializable {
     private int menuId;
     private int dishId;
 
-    @Id
     @Column(name = "menu_id", nullable = false)
+    @Id
     public int getMenuId() {
         return menuId;
     }
@@ -20,8 +19,8 @@ public class MenuHasDish {
         this.menuId = menuId;
     }
 
-    @Id
     @Column(name = "dish_id", nullable = false)
+    @Id
     public int getDishId() {
         return dishId;
     }
@@ -34,7 +33,7 @@ public class MenuHasDish {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MenuHasDish that = (MenuHasDish) o;
+        MenuHasDishPK that = (MenuHasDishPK) o;
         return menuId == that.menuId &&
                 dishId == that.dishId;
     }

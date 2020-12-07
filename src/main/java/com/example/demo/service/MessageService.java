@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Customer;
-import com.example.demo.model.CustomerMessage;
+import com.example.demo.model.views.CustomerMessage;
 import com.example.demo.model.Message;
 import com.example.demo.repository.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,6 @@ public class MessageService {
     }
 
     public Message createMessage(Message message) {
-        System.out.println("message" + message);
         return messageRepo.save(message);
     }
 

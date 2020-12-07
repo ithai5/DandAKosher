@@ -1,12 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Dish;
 import com.example.demo.model.Menu;
+import com.example.demo.model.views.MenuContent;
 import com.example.demo.service.MenuService;
-import com.example.demo.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,6 +43,16 @@ public class MenuRestController {
         return menuService.createMenu(menu);
     }
 
+
+    @GetMapping("/menuContent/{name}")
+    public ResponseEntity<List<MenuContent>> getMenuContentByName(@PathVariable("name") String name){
+        return menuService.getMenuContentByName(name);
+    }
+
+    @GetMapping("/menuContentDish/{name}")
+    public ResponseEntity<List<Dish>> getDishesForMenu(@PathVariable("name") String name) {
+        return menuService.getDishesForMenuContent(name);
+    }
 
 
 }

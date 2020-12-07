@@ -1,29 +1,29 @@
-package com.example.demo.model;
+package com.example.demo.model.views;
+import com.example.demo.model.Dish;
+
 import java.math.BigDecimal;
 import java.util.List;
 
-public class LmaoReservation {
+public class ReservationInfo {
     private int id;
     private Integer totalPeople;
     private BigDecimal totalPrice;
     private String menuName;
     private String eventName;
     private String email;
-    private String dishName;
     private String content;
     private List<Dish> extras;
 
-    public LmaoReservation() {
+    public ReservationInfo() {
     }
 
-    public LmaoReservation(int id, Integer totalPeople, BigDecimal totalPrice, String menuName, String eventName, String email, String dishName, String content, List<Dish> extras) {
+    public ReservationInfo(int id, Integer totalPeople, BigDecimal totalPrice, String menuName, String eventName, String email, String content, List<Dish> extras) {
         this.id = id;
         this.totalPeople = totalPeople;
         this.totalPrice = totalPrice;
         this.menuName = menuName;
         this.eventName = eventName;
         this.email = email;
-        this.dishName = dishName;
         this.content = content;
         this.extras = extras;
     }
@@ -76,14 +76,6 @@ public class LmaoReservation {
         this.email = email;
     }
 
-    public String getDishName() {
-        return dishName;
-    }
-
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
-    }
-
     public String getContent() {
         return content;
     }
@@ -109,7 +101,6 @@ public class LmaoReservation {
                 ", menuName='" + menuName + '\'' +
                 ", eventName='" + eventName + '\'' +
                 ", email='" + email + '\'' +
-                ", dishName='" + dishName + '\'' +
                 ", content='" + content + '\'' +
                 ", extras=" + extras +
                 '}';

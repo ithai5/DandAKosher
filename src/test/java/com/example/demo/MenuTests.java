@@ -1,14 +1,12 @@
 package com.example.demo;
 
 import com.example.demo.model.Menu;
-import com.example.demo.model.MenuContent;
-import com.example.demo.service.MenuContentService;
+import com.example.demo.model.views.MenuContent;
 import com.example.demo.service.MenuService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.orm.jpa.JpaSystemException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,12 +15,10 @@ import java.util.List;
 public class MenuTests {
 
     private final MenuService menuService;
-    private final MenuContentService menuContentService;
 
     @Autowired
-    public MenuTests(MenuService menuService, MenuContentService menuContentService){
+    public MenuTests(MenuService menuService){
         this.menuService = menuService;
-        this.menuContentService = menuContentService;
     }
 
     @Test
@@ -39,11 +35,11 @@ public class MenuTests {
 
     @Test
     void foodListMapping() {
-        List<MenuContent> ls1 = menuContentService.getMenuContentByName("Deluxe").getBody();
+        List<MenuContent> ls1 = menuService.getMenuContentByName("Deluxe").getBody();
         System.out.println(ls1);
-        List<MenuContent> ls2 = menuContentService.findAll().getBody();
+        List<MenuContent> ls2 = menuService.findAllMenuContent().getBody();
         System.out.println(ls2);
-        List<MenuContent> ls3 = menuContentService.findAllById(1).getBody();
+        List<MenuContent> ls3 = menuService.findAllMenuContentById(1).getBody();
         System.out.println(ls3);
         //Assertions.assertThrows(JpaSystemException.class, () -> menuContentService.findById(1));
     }
