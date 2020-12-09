@@ -40,7 +40,7 @@ public class ReservationTests {
     void createReservation(){
         //The display object gotten from the website
         //Currently, the attributes id, totalPrice and dishName are superfluous
-        ReservationInfo fromWeb = new ReservationInfo(0, 6, null, "basic", "bar mitzvah", "rapMan@rapMail.rp", "lmaoReservation", null);
+        ReservationInfo fromWeb = new ReservationInfo(0,"Full- Name", 6, null, "basic", "bar mitzvah", "rapMan@rapMail.rp", "lmaoReservation", null);
 
         //Setting the list of extras manually, cos it's a pain to do in one line
         List<Dish> extras = new ArrayList<>();

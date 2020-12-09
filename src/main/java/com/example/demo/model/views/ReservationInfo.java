@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ReservationInfo {
     private int id;
+    private String fullName;
     private Integer totalPeople;
     private BigDecimal totalPrice;
     private String menuName;
@@ -17,8 +18,9 @@ public class ReservationInfo {
     public ReservationInfo() {
     }
 
-    public ReservationInfo(int id, Integer totalPeople, BigDecimal totalPrice, String menuName, String eventName, String email, String content, List<Dish> extras) {
+    public ReservationInfo(int id,String fullName, Integer totalPeople, BigDecimal totalPrice, String menuName, String eventName, String email, String content, List<Dish> extras) {
         this.id = id;
+        this.fullName = fullName;
         this.totalPeople = totalPeople;
         this.totalPrice = totalPrice;
         this.menuName = menuName;
@@ -34,6 +36,16 @@ public class ReservationInfo {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFullName ()
+    {
+        return fullName;
+    }
+
+    public void setFullName (String fullName)
+    {
+        this.fullName = fullName;
     }
 
     public Integer getTotalPeople() {
@@ -93,16 +105,29 @@ public class ReservationInfo {
     }
 
     @Override
-    public String toString() {
-        return "LmaoReservation{" +
-                "id=" + id +
-                ", totalPeople=" + totalPeople +
-                ", totalPrice=" + totalPrice +
-                ", menuName='" + menuName + '\'' +
-                ", eventName='" + eventName + '\'' +
-                ", email='" + email + '\'' +
-                ", content='" + content + '\'' +
-                ", extras=" + extras +
-                '}';
+    public String toString ()
+    {
+        return "ReservationInfo{" + "id=" + id + ", fullName='" + fullName + '\'' + ", totalPeople=" + totalPeople + ", totalPrice=" + totalPrice + ", menuName='" + menuName + '\'' + ", eventName='" + eventName + '\'' + ", email='" + email + '\'' + ", content='" + content + '\'' + ", extras=" + extras + '}';
+    }
+
+    public String dishesToMail(){
+        String text = "";
+        for (Dish dish : this.extras){
+            text += dish.getName() + ", ";
+        }
+        return text;
+    }
+
+    public String sendToMail(){
+        return "New reservation From: " + this.fullName + "\n"+
+                "The event is: " + this.eventName + "\n"+
+                "Menu Name:" + menuName + "\n"+
+                "Additional Info From the Customer" + content+ "\n"+
+                "totalPeople:"+ totalPeople + "\n" +
+                "extras:" + dishesToMail() + "\n" +
+                "________________________________________________________________________________\n" +
+                "Total estimate price" + totalPrice +
+                "\n\n\n\n\n" +
+                "The mail of the customer is:" + this.email;
     }
 }

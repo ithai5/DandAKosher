@@ -28,6 +28,7 @@ public class CustomerService {
     public Customer customerExists(Customer customer) {
         Customer existingCustomer = customerRepo.findByEmail(customer.getEmail());
         if (existingCustomer == null ) {
+
             createCustomer(customer);
             do{
                 existingCustomer = customerRepo.findByEmail(customer.getEmail());
