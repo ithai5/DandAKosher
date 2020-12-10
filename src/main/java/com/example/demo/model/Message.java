@@ -21,6 +21,12 @@ public class Message {
         this.customerId = customerId;
     }
 
+    public Message (String content ,String subject)
+    {
+        this.content = content;
+        this.subject = subject;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

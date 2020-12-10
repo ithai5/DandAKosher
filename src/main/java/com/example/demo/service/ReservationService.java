@@ -1,10 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Dish;
-import com.example.demo.model.Event;
+import com.example.demo.model.*;
 import com.example.demo.model.views.MenuContent;
 import com.example.demo.model.views.ReservationInfo;
-import com.example.demo.model.Reservation;
 import com.example.demo.model.manyToMany.ReservationHasDish;
 import com.example.demo.repository.DishRepo;
 import com.example.demo.repository.EventRepo;
@@ -27,11 +25,12 @@ public class ReservationService {
     private final MenuService menuService;
     private final CustomerService customerService;
     private final EventRepo eventRepo;
+    private final MessageService messageService;
 
     @Autowired
     public ReservationService(ReservationRepo reservationRepo, ReservationHasDishRepo reservationHasDishRepo,
                               MenuService menuService, CustomerService customerService,
-                              EventRepo eventRepo, DishRepo dishRepo){
+                              EventRepo eventRepo, DishRepo dishRepo, MessageService messageService){
         super();
         this.reservationRepo = reservationRepo;
         this.reservationHasDishRepo = reservationHasDishRepo;
@@ -39,6 +38,7 @@ public class ReservationService {
         this.customerService = customerService;
         this.eventRepo = eventRepo;
         this.dishRepo = dishRepo;
+        this.messageService  =messageService;
     }
 
     public Reservation findById(int id) {
@@ -46,37 +46,38 @@ public class ReservationService {
     }
 
 
-    //Create reservation has to be called twice in order to update the price attribute
     public ResponseEntity<Reservation> handleReservationFromWeb(ReservationInfo fromWeb) {
 
-        int customerId = customerService.findCustomerByEmail(fromWeb.getEmail()).getBody().getId();
-
+        //find customer id/ or create a new customer with a new id
+        Customer customer = customerService.customerExists(new Customer (fromWeb.getEmail(),fromWeb.getFullName()));
         //Find menu by name
         int menuId = menuService.findMenuByName(fromWeb.getMenuName()).getBody().getId();
 
         //Find event by name
         int eventId = eventRepo.findByEventName(fromWeb.getEventName()).getId();
 
-        //Create the price (Needs a Reservation object)
+        //Create the price
         double totalPrice = calculatePrice(fromWeb);
 
         //Create the reservation (messageId might be outdated as an attribute)
         Reservation toDb = new Reservation(0, fromWeb.getTotalPeople(), BigDecimal.valueOf(totalPrice),
-                menuId, eventId, customerId, null);
+                menuId, eventId, customer.getId(), null);
 
 
+        /*
+
+        use information from the fromWeb
+
+         */
         //Check if Reservation message exists and send it
-        if (!fromWeb.getContent().isEmpty()) {
-            System.out.println("Sent!");
-            //Don't actually send, just see if condition works
-            //messageService.sendMessageToEmail(fromWeb.getContent());
-        }
+
+        //Don't actually send, just see if condition works
+        messageService.sendMessageToEmail(new Message(fromWeb.sendToMail(), "New Reservation"));
 
         Reservation reservation = createReservation(toDb);
         int reservationId = reservationRepo.findAll().
                         get(reservationRepo.findAll().size() - 1).
                         getId();
-        System.out.println(reservationId);
 
         //Create the extras (No return type, results seen in the ManyToMany table)
         addExtrasToReservation(reservationId, fromWeb.getExtras());

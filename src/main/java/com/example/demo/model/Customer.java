@@ -16,6 +16,12 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer (String email , String fullName)
+    {
+        this.fullName = fullName;
+        this.email = email;
+    }
+
     public Customer(int id, String fullName, String phone, String email, byte isSubscribed) {
         this.id = id;
         this.fullName = fullName;
