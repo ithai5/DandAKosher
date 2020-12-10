@@ -39,6 +39,7 @@ public class CustomerService {
         }
         return existingCustomer;
     }
+
     public ResponseEntity<Customer> findCustomerById(Integer customerId){
         Optional<Customer> response = customerRepo.findById(customerId);
         if (response.isPresent()) {

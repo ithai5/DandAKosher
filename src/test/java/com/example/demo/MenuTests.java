@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.orm.jpa.JpaSystemException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -29,7 +31,7 @@ public class MenuTests {
         Menu menu = new Menu(id, "deluxePlus", BigDecimal.valueOf(100.75));
         Menu menuDummy = new Menu(id, "deluxePlus", BigDecimal.valueOf(100.75));
         //Should be true
-        Assertions.assertEquals(menuDummy, menuService.createMenu(menu));
+        Assertions.assertEquals(menuDummy, menuService.createMenu(menu).getBody());
 
     }
 
@@ -39,9 +41,7 @@ public class MenuTests {
         System.out.println(ls1);
         List<MenuContent> ls2 = menuService.findAllMenuContent().getBody();
         System.out.println(ls2);
-        List<MenuContent> ls3 = menuService.findAllMenuContentById(1).getBody();
-        System.out.println(ls3);
-        //Assertions.assertThrows(JpaSystemException.class, () -> menuContentService.findById(1));
+        Assertions.assertThrows(Exception.class, () -> menuService.findAllMenuContentById(1));
     }
     /*
     @Test

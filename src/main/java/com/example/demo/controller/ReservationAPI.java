@@ -24,7 +24,7 @@ public class ReservationAPI {
 
     @PostMapping(value="/createReservation", consumes = "application/json")
     public ResponseEntity<Reservation> createReservation(@RequestBody ReservationInfo reservationInfo) {
-        System.out.println(reservationInfo);
+        //System.out.println(reservationInfo);
         return reservationService.handleReservationFromWeb(reservationInfo);
     }
 

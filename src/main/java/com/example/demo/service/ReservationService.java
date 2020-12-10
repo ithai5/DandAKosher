@@ -46,7 +46,6 @@ public class ReservationService {
     }
 
 
-    //Create reservation has to be called twice in order to update the price attribute
     public ResponseEntity<Reservation> handleReservationFromWeb(ReservationInfo fromWeb) {
 
         //find customer id/ or create a new customer with a new id
@@ -57,7 +56,7 @@ public class ReservationService {
         //Find event by name
         int eventId = eventRepo.findByEventName(fromWeb.getEventName()).getId();
 
-        //Create the price (Needs a Reservation object)
+        //Create the price
         double totalPrice = calculatePrice(fromWeb);
 
         //Create the reservation (messageId might be outdated as an attribute)

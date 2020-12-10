@@ -119,13 +119,12 @@ public class ReservationTests {
     @Test
     void priceCalc() {
         //Tests done on reservation with menuId = 2
-        Reservation r1 = reservationService.findById(7);
-        double basePrice = menuService.findById(r1.getMenuId()).
-                getBody().getPrice().
-                doubleValue();
+        Reservation r1 = reservationService.findById(1);
+        double basePrice = menuService.findById(r1.getMenuId()).getBody().getPrice().doubleValue();
 
-        //Assert that the price for menuId = 2 with no extras and a minimum of 4 people is is basePrice * 4
-        Assertions.assertEquals(basePrice * 4, reservationService.calculatePrice(r1));
+
+        //Assert that the price for menuId = 1 with no extras and a minimum of 4 people is is basePrice * 4
+        Assertions.assertEquals(basePrice * r1.getTotalPeople(), reservationService.calculatePrice(r1));
 
         r1.setTotalPeople(7);
         //Assert that the price increases per person
